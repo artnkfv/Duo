@@ -5,6 +5,6 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='duo',
-            executable='',
+            executable='example',
             output='screen'),
     ])
