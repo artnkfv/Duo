@@ -9,9 +9,10 @@ def generate_launch_description():
     # Get the package directory for duo_description
     pkg_duo_description = get_package_share_directory('duo_description')
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
+    pkg_duo = get_package_share_directory('duo')
     
     # Define the path to your URDF file
-    robot_description_path = os.path.join(pkg_duo_description, 'duo.urdf.xml')
+    robot_description_path = os.path.join(pkg_duo_description, 'duo.urdf')
     
     # Node to spawn the robot in Ignition Gazebo
     spawn_entity = Node(
@@ -26,9 +27,24 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
         launch_arguments={'ign_args': 'empty.sdf'}.items(),
     )
+
+    # Include the bridge launch file
+    bridge_gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(os.path.join(pkg_duo, 'launch', 'bridge_gazebo.launch.py'))
+    )
+
+
+    circle_publisher = Node(
+        package='duo',
+        executable='circle_publisher',
+        name='circle_publisher',
+        output='screen'
+    )
     
     # Return the launch description
     return LaunchDescription([
         ignition_gazebo_launch,
         spawn_entity,
+        bridge_gazebo,
+        circle_publisher
     ])
