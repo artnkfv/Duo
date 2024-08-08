@@ -13,6 +13,8 @@ def generate_launch_description():
     
     # Define the path to your URDF file
     robot_description_path = os.path.join(pkg_duo_description, 'duo.urdf')
+
+
     
     # Node to spawn the robot in Ignition Gazebo
     spawn_entity = Node(
@@ -25,8 +27,9 @@ def generate_launch_description():
     # Include the Ignition Gazebo launch file
     ignition_gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-        launch_arguments={'ign_args': 'empty.sdf'}.items(),
+        launch_arguments={'ign_args': 'lightmap.sdf'}.items(),
     )
+
 
     # Include the bridge launch file
     bridge_gazebo = IncludeLaunchDescription(
@@ -46,5 +49,5 @@ def generate_launch_description():
         ignition_gazebo_launch,
         spawn_entity,
         bridge_gazebo,
-        circle_publisher
+        # circle_publisher
     ])
