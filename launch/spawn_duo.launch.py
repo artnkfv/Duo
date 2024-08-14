@@ -43,11 +43,19 @@ def generate_launch_description():
         name='circle_publisher',
         output='screen'
     )
+
+    encoder_publisher = Node(
+        package='duo',
+        executable='encoder_publisher',
+        name='encoder_publisher',
+        output='screen'
+    )
     
     # Return the launch description
     return LaunchDescription([
         ignition_gazebo_launch,
         spawn_entity,
         bridge_gazebo,
+        encoder_publisher,
         # circle_publisher
     ])
