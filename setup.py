@@ -25,7 +25,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'circle_publisher = duo.circle_publisher:main'
+            'circle_publisher = duo.circle_publisher:main',
+            'encoder_publisher = duo.encoder_publisher:main'
         ],
     },
 )
